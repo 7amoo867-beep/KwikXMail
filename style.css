@@ -1,0 +1,71 @@
+* { box-sizing: border-box; } 
+:root { --turq: #00f2ff; --bg-dark: #0a1f1f; } 
+body { background: radial-gradient(circle at 50% 50%, var(--bg-dark) 0%, #000 100%); color: #fff; font-family: 'Cairo', 'Poppins', sans-serif; margin: 0; padding: 20px; transition: all 0.3s ease; }
+
+/* الهيدر المتوازن مع دعم الاتجاهين */
+.header { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 20px; position: relative; }
+.lang-switch { display: flex; gap: 25px; margin-inline-end: auto; align-items: center; } 
+
+/* --- تم إصلاح مشكلة اختفاء القائمة هنا --- */
+.lang-dropdown { position: relative; display: inline-block; padding-bottom: 15px; } /* إضافة مسافة سفلية خفية لمنع اختفاء القائمة */
+.dropdown-content { display: none; position: absolute; background: #111; min-width: 120px; box-shadow: 0px 8px 16px rgba(0,242,255,0.2); z-index: 10; border-radius: 8px; top: 100%; border: 1px solid #333; }
+.lang-dropdown:hover .dropdown-content { display: block; }
+.lang-option { display: block; padding: 12px; cursor: pointer; color: #fff; transition: 0.3s; text-align: center; font-size: 0.9rem; }
+.lang-option:hover { color: var(--turq); background: #1a1a1a; }
+
+.lang-btn { cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
+.lang-btn:hover { color: var(--turq); text-shadow: 0 0 10px var(--turq); }
+
+@keyframes subtlePulse {
+    0% { text-shadow: 0 0 5px var(--turq); opacity: 1; }
+    50% { text-shadow: 0 0 25px var(--turq); opacity: 0.6; }
+    100% { text-shadow: 0 0 5px var(--turq); opacity: 1; }
+}
+
+.logo { font-size: 2.8rem; font-weight: 800; position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 15px; direction: ltr; }
+.logo span { color: var(--turq); display: inline-block; animation: subtlePulse 2.5s infinite ease-in-out; }
+
+.main-wrapper { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; max-width: 1200px; margin: 120px auto 0 auto; }
+.card { background: rgba(255,255,255,0.03); border: 1px solid #333; padding: 40px; border-radius: 25px; margin-bottom: 30px; position: relative; }
+
+.email-container { display: flex; align-items: stretch; background: #000; border: 1px solid #444; border-radius: 15px; overflow: hidden; margin-top: 15px; direction: ltr; }
+.email-input { flex: 1; background: transparent; border: none; color: var(--turq); padding: 20px; font-size: 1.5rem; text-align: left; outline: none; }
+.domain-select { background: #111; color: #fff; border: none; border-left: 1px solid #444; padding: 0 15px; font-size: 1.2rem; outline: none; cursor: pointer; font-family: 'Poppins', sans-serif; }
+.domain-select:hover { background: #1a1a1a; }
+
+.action-icons { display: flex; align-items: center; padding: 0 20px; gap: 15px; border-right: 1px solid #444; color: #777; font-size: 1.3rem; background: #0a0a0a; }
+.action-icons i { cursor: pointer; transition: 0.3s; }
+.action-icons i:hover { color: var(--turq); }
+
+.timer-badge { position: absolute; top: 15px; inset-inline-end: 40px; background: rgba(0, 242, 255, 0.1); border: 1px solid var(--turq); color: var(--turq); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; display: flex; align-items: center; gap: 8px; direction: ltr; }
+
+.buttons-container { display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
+.btn-icon { background: #111; border: 1px solid #444; color: #fff; padding: 16px 28px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px; font-size: 1rem; }
+.btn-icon:hover { border-color: var(--turq); color: var(--turq); }
+
+.ad-slot { border: 2px dashed #444; height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #555; margin-bottom: 20px; font-size: 1.2rem; text-align: center; }
+
+.articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 40px auto; align-items: start; }
+.art-box { min-height: 320px; background: #111; border: 1px solid #444; border-radius: 20px; cursor: pointer; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.4s ease; overflow: hidden; }
+.art-box:hover { border-color: var(--turq); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
+.art-img { width: 100%; height: 140px; background: var(--bg-dark); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: var(--turq); border: 1px solid #222; }
+.art-content { max-height: 0; opacity: 0; transition: all 0.4s ease; font-size: 0.95rem; color: #ccc; line-height: 1.7; padding: 0; margin: 0; }
+.art-box.active { border-color: var(--turq); background: #151515; }
+.art-box.active .art-content { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #333; }
+
+.faq-section { max-width: 1200px; margin: 40px auto; padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 20px; }
+.faq-title { text-align: center; color: var(--turq); margin-bottom: 30px; font-size: 1.8rem; }
+.faq-item { background: #111; border: 1px solid #444; border-radius: 15px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; overflow: hidden; }
+.faq-item:hover { border-color: var(--turq); }
+.faq-header { padding: 20px; margin: 0; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; transition: 0.3s; }
+.faq-answer { max-height: 0; opacity: 0; transition: all 0.4s ease; padding: 0 20px; color: #ccc; line-height: 1.7; }
+.faq-item.active .faq-header { color: var(--turq); border-bottom: 1px dashed #333; padding-bottom: 15px; margin-bottom: 15px; }
+.faq-item.active .faq-answer { max-height: 300px; opacity: 1; padding: 0 20px 20px 20px; }
+
+footer { text-align: center; padding: 40px; border-top: 1px solid #333; margin-top: 60px; color: #666; font-size: 0.9rem; }
+footer a { color: var(--turq); text-decoration: none; margin: 0 10px; transition: 0.3s; }
+footer a:hover { text-shadow: 0 0 8px var(--turq); }
+
+.otp-message { background: #111; border: 1px solid #333; border-radius: 15px; padding: 20px; margin-top: 15px; text-align: start; width: 100%; animation: fadeIn 0.5s; }
+.otp-code { display: inline-block; background: rgba(0,242,255,0.1); color: var(--turq); border: 1px dashed var(--turq); padding: 10px 20px; font-size: 1.8rem; font-weight: bold; border-radius: 10px; margin-top: 10px; letter-spacing: 3px; direction: ltr; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
