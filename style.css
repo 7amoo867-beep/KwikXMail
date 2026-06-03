@@ -2,18 +2,17 @@
 :root { --turq: #00f2ff; --bg-dark: #0a1f1f; } 
 body { background: radial-gradient(circle at 50% 50%, var(--bg-dark) 0%, #000 100%); color: #fff; font-family: 'Cairo', 'Poppins', sans-serif; margin: 0; padding: 20px; transition: all 0.3s ease; }
 
-/* الهيدر المتوازن مع دعم الاتجاهين */
-.header { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 20px; position: relative; }
-.lang-switch { display: flex; gap: 25px; margin-inline-end: auto; align-items: center; } 
+/* الهيدر المتوازن وتصحيح التجاوب */
+.header { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 20px; position: relative; width: 100%; }
+.lang-switch { display: flex; gap: 25px; align-items: center; z-index: 5; } 
 
-/* --- تم إصلاح مشكلة اختفاء القائمة هنا --- */
-.lang-dropdown { position: relative; display: inline-block; padding-bottom: 15px; } /* إضافة مسافة سفلية خفية لمنع اختفاء القائمة */
+.lang-dropdown { position: relative; display: inline-block; padding-bottom: 15px; }
 .dropdown-content { display: none; position: absolute; background: #111; min-width: 120px; box-shadow: 0px 8px 16px rgba(0,242,255,0.2); z-index: 10; border-radius: 8px; top: 100%; border: 1px solid #333; }
 .lang-dropdown:hover .dropdown-content { display: block; }
 .lang-option { display: block; padding: 12px; cursor: pointer; color: #fff; transition: 0.3s; text-align: center; font-size: 0.9rem; }
 .lang-option:hover { color: var(--turq); background: #1a1a1a; }
 
-.lang-btn { cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
+.lang-btn { cursor: pointer; transition: 0.3s; font-size: 0.95rem; display: flex; align-items: center; }
 .lang-btn:hover { color: var(--turq); text-shadow: 0 0 10px var(--turq); }
 
 @keyframes subtlePulse {
@@ -22,14 +21,23 @@ body { background: radial-gradient(circle at 50% 50%, var(--bg-dark) 0%, #000 10
     100% { text-shadow: 0 0 5px var(--turq); opacity: 1; }
 }
 
-.logo { font-size: 2.8rem; font-weight: 800; position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 15px; direction: ltr; }
+.logo { font-size: 2.8rem; font-weight: 800; position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 15px; direction: ltr; z-index: 1; }
 .logo span { color: var(--turq); display: inline-block; animation: subtlePulse 2.5s infinite ease-in-out; }
 
-.main-wrapper { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; max-width: 1200px; margin: 120px auto 0 auto; }
-.card { background: rgba(255,255,255,0.03); border: 1px solid #333; padding: 40px; border-radius: 25px; margin-bottom: 30px; position: relative; }
+/* حاويات الإعلانات المحدثة كلياً والمحجومة بأبعاد صارمة منعاً للتشوه */
+.ad-container { display: flex; justify-content: center; align-items: center; margin: 30px auto; width: 100%; background: transparent; overflow: hidden; }
+.top-ad { min-height: 90px; }
+.bottom-ad { min-height: 90px; }
+
+.ad-desktop { display: block; width: 728px; height: 90px; overflow: hidden; }
+.ad-mobile { display: none; width: 320px; height: 50px; overflow: hidden; }
+
+/* سنترة محتوى التطبيق بالكامل وإلغاء الجوانب */
+.main-wrapper { display: flex; flex-direction: column; gap: 25px; max-width: 760px; margin: 60px auto 40px auto; width: 100%; }
+.card { background: rgba(255,255,255,0.03); border: 1px solid #333; padding: 40px; border-radius: 25px; position: relative; width: 100%; }
 
 .email-container { display: flex; align-items: stretch; background: #000; border: 1px solid #444; border-radius: 15px; overflow: hidden; margin-top: 15px; direction: ltr; }
-.email-input { flex: 1; background: transparent; border: none; color: var(--turq); padding: 20px; font-size: 1.5rem; text-align: left; outline: none; }
+.email-input { flex: 1; background: transparent; border: none; color: var(--turq); padding: 20px; font-size: 1.5rem; text-align: left; outline: none; width: 50%; }
 .domain-select { background: #111; color: #fff; border: none; border-left: 1px solid #444; padding: 0 15px; font-size: 1.2rem; outline: none; cursor: pointer; font-family: 'Poppins', sans-serif; }
 .domain-select:hover { background: #1a1a1a; }
 
@@ -43,17 +51,17 @@ body { background: radial-gradient(circle at 50% 50%, var(--bg-dark) 0%, #000 10
 .btn-icon { background: #111; border: 1px solid #444; color: #fff; padding: 16px 28px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px; font-size: 1rem; }
 .btn-icon:hover { border-color: var(--turq); color: var(--turq); }
 
-.ad-slot { border: 2px dashed #444; height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #555; margin-bottom: 20px; font-size: 1.2rem; text-align: center; }
-
-.articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 40px auto; align-items: start; }
-.art-box { min-height: 320px; background: #111; border: 1px solid #444; border-radius: 20px; cursor: pointer; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.4s ease; overflow: hidden; }
+/* شبكة المقالات والمربعات */
+.articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 60px auto; align-items: start; width: 100%; }
+.art-box { min-height: 180px; background: #111; border: 1px solid #444; border-radius: 20px; cursor: pointer; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.4s ease; overflow: hidden; }
 .art-box:hover { border-color: var(--turq); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
-.art-img { width: 100%; height: 140px; background: var(--bg-dark); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: var(--turq); border: 1px solid #222; }
-.art-content { max-height: 0; opacity: 0; transition: all 0.4s ease; font-size: 0.95rem; color: #ccc; line-height: 1.7; padding: 0; margin: 0; }
-.art-box.active { border-color: var(--turq); background: #151515; }
-.art-box.active .art-content { max-height: 1000px; opacity: 1; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #333; }
+.art-img { width: 100%; height: 100px; background: var(--bg-dark); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; color: var(--turq); border: 1px solid #222; }
+.art-box h4 { margin: 10px 0; font-size: 1.1rem; line-height: 1.4; }
+.art-content { max-height: 0; opacity: 0; transition: all 0.4s ease; font-size: 0.95rem; color: #ccc; line-height: 1.7; padding: 0; margin: 0; text-align: justify; }
+.art-box.active { border-color: var(--turq); background: #151515; min-height: auto; }
+.art-box.active .art-content { max-height: 2000px; opacity: 1; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #333; }
 
-.faq-section { max-width: 1200px; margin: 40px auto; padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 20px; }
+.faq-section { max-width: 760px; margin: 40px auto; padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 20px; width: 100%; }
 .faq-title { text-align: center; color: var(--turq); margin-bottom: 30px; font-size: 1.8rem; }
 .faq-item { background: #111; border: 1px solid #444; border-radius: 15px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; overflow: hidden; }
 .faq-item:hover { border-color: var(--turq); }
@@ -62,10 +70,41 @@ body { background: radial-gradient(circle at 50% 50%, var(--bg-dark) 0%, #000 10
 .faq-item.active .faq-header { color: var(--turq); border-bottom: 1px dashed #333; padding-bottom: 15px; margin-bottom: 15px; }
 .faq-item.active .faq-answer { max-height: 300px; opacity: 1; padding: 0 20px 20px 20px; }
 
-footer { text-align: center; padding: 40px; border-top: 1px solid #333; margin-top: 60px; color: #666; font-size: 0.9rem; }
+footer { text-align: center; padding: 40px; border-top: 1px solid #333; margin-top: 60px; color: #666; font-size: 0.9rem; width: 100%; }
 footer a { color: var(--turq); text-decoration: none; margin: 0 10px; transition: 0.3s; }
 footer a:hover { text-shadow: 0 0 8px var(--turq); }
 
 .otp-message { background: #111; border: 1px solid #333; border-radius: 15px; padding: 20px; margin-top: 15px; text-align: start; width: 100%; animation: fadeIn 0.5s; }
 .otp-code { display: inline-block; background: rgba(0,242,255,0.1); color: var(--turq); border: 1px dashed var(--turq); padding: 10px 20px; font-size: 1.8rem; font-weight: bold; border-radius: 10px; margin-top: 10px; letter-spacing: 3px; direction: ltr; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* شاشة الموبايل والتجاوب المطلق بدون أي أخطاء */
+@media (max-width: 768px) {
+    body { padding: 10px; }
+    
+    /* منع تداخل الهيدر */
+    .header { flex-direction: column; gap: 20px; padding-bottom: 10px; margin-bottom: 20px; }
+    .logo { position: relative; left: auto; transform: none; font-size: 2.2rem; order: -1; }
+    .lang-switch { width: 100%; justify-content: space-between; margin: 0; }
+    
+    /* تفعيل التحجيم الصارم للإعلانات على الموبايل */
+    .ad-container { margin: 15px auto; }
+    .top-ad { min-height: 50px; }
+    .bottom-ad { min-height: 50px; }
+    .ad-desktop { display: none !important; }
+    .ad-mobile { display: block !important; }
+    
+    /* ضبط كروت التحكم الرئيسي */
+    .main-wrapper { margin-top: 10px; }
+    .card { padding: 20px; border-radius: 15px; }
+    .email-container { flex-direction: column; }
+    .email-input { width: 100%; text-align: center; padding: 15px; font-size: 1.2rem; }
+    .domain-select { border-left: none; border-top: 1px solid #444; padding: 12px; font-size: 1.1rem; text-align: center; }
+    .action-icons { border-right: none; border-bottom: 1px solid #444; padding: 12px; justify-content: center; }
+    .timer-badge { position: relative; top: auto; inset-inline-end: auto; margin: 0 auto 15px auto; width: fit-content; }
+    .btn-icon { width: 100%; justify-content: center; padding: 12px; }
+    
+    /* تحويل شبكة المقالات لعمود واحد متناسق */
+    .articles-grid { grid-template-columns: 1fr; gap: 20px; margin: 30px auto; }
+    .art-box { min-height: auto; padding: 20px; }
+}
