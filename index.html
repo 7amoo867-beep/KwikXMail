@@ -28,21 +28,8 @@
     <div class="logo">Kwik <span>X</span> Mail</div>
 </div>
 
-<!-- الإعلان العلوي المتجاوب (تحت الهيدر مباشرة) -->
-<div class="ad-container top-ad">
-    <div class="ad-desktop">
-        <script>
-          atOptions = { 'key' : '5642a74574c1515ae764cfb39798cab6', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-        </script>
-        <script src="https://www.highperformanceformat.com/5642a74574c1515ae764cfb39798cab6/invoke.js"></script>
-    </div>
-    <div class="ad-mobile">
-        <script>
-          atOptions = { 'key' : '9fa7d799c17b66283ab9df4f13f1a26f', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-        </script>
-        <script src="https://www.highperformanceformat.com/9fa7d799c17b66283ab9df4f13f1a26f/invoke.js"></script>
-    </div>
-</div>
+<!-- الإعلان العلوي - يتحمل بعد الصفحة عشان ميأثرش على التحميل -->
+<div class="ad-container top-ad" id="topAdContainer"></div>
 
 <!-- واجهة التطبيق الرئيسية (مجرّدة ومسنتّرة في النص) -->
 <div class="main-wrapper">
@@ -70,7 +57,7 @@
         <div class="buttons-container">
             <button class="btn-icon" onclick="generateNewEmail()"><i class="fas fa-plus"></i> <span class="t" data-ar="إنشاء" data-en="Generate">Generate</span></button>
             <button class="btn-icon" onclick="copyEmail()"><i class="far fa-copy"></i> <span class="t" data-ar="نسخ" data-en="Copy">Copy</span></button>
-            <button class="btn-icon" onclick="simulateNewMessage()"><i class="fas fa-sync-alt" id="refreshIcon"></i> <span class="t" data-ar="تحديث" data-en="Refresh">Refresh</span></button>
+            <button class="btn-icon" onclick="manualRefresh()"><i class="fas fa-sync-alt" id="refreshIcon"></i> <span class="t" data-ar="تحديث" data-en="Refresh">Refresh</span></button>
             <button class="btn-icon" onclick="deleteEmail()"><i class="fas fa-trash-alt"></i> <span class="t" data-ar="حذف" data-en="Delete">Delete</span></button>
         </div>
     </div>
@@ -150,11 +137,7 @@
 </div>
 
 <div class="faq-section">
-    <h3 class="faq-title t" data-ar="الأسئلة الشائعة" data-en="Frequently Asked Questions">Frequently Asked Questions</h3>
-    
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <h4 class="faq-header"><span class="t" data-ar="ما هو بريد Kwik X Mail المؤقت؟" data-en="What is Kwik X Mail?">What is Kwik X Mail?</span> <i class="fas fa-chevron-down"></i></h4>
-        <div class="faq-answer t" data-ar="هو خدمة بريد إلكتروني مجانية تتيح لك استقبال الرسائل على عنوان مؤقت يحمي بريدك الأساسي." data-en="It is a free email service that allows you to receive messages at a temporary address to protect your real email.">It is a free email service that allows you to receive messages at a temporary address to protect your real email.</div>
+    <h3 class="faq-title t" data-ar="الأسئلة الشائعة" data-en="Frequently Asked Questions">Frequently Asked Questions</h3شice that allows you to receive messages at a temporary address to protect your real email.</div>
     </div>
     
     <div class="faq-item" onclick="this.classList.toggle('active')">
@@ -186,6 +169,42 @@
     if (!localStorage.getItem('kwik_lang')) {
         localStorage.setItem('kwik_lang', 'en');
     }
+
+    // ✅ تحميل الإعلان بعد الصفحة عشان ميوقفش التحميل
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            const isMobile = window.innerWidth <= 768;
+            const container = document.getElementById('topAdContainer');
+
+            if (isMobile) {
+                // إعلان موبايل 320x50
+                atOptions = { 'key': '9fa7d799c17b66283ab9df4f13f1a26f', 'format': 'iframe', 'height': 50, 'width': 320, 'params': {} };
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'width:320px;height:50px;overflow:hidden;';
+                container.appendChild(wrapper);
+                const s = document.createElement('script');
+                s.src = 'https://www.highperformanceformat.com/9fa7d799c17b66283ab9df4f13f1a26f/invoke.js';
+                wrapper.appendChild(s);
+            } else {
+                // إعلان لابتوب 728x90
+                atOptions = { 'key': '5642a74574c1515ae764cfb39798cab6', 'format': 'iframe', 'height': 90, 'width': 728, 'params': {} };
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'width:728px;height:90px;overflow:hidden;';
+                container.appendChild(wrapper);
+                const s = document.createElement('script');
+                s.src = 'https://www.highperformanceformat.com/5642a74574c1515ae764cfb39798cab6/invoke.js';
+                wrapper.appendChild(s);
+            }
+        }, 1500); // ✅ ثانية ونص تأخير عشان الصفحة تتحمل الأول
+    });
+
+    // ✅ منع الـ pop-up من يفتح نوافذ جديدة
+    const _windowOpen = window.open;
+    window.open = function(url, name, specs) {
+        // لو الـ pop-up جاي من الإعلانات، امنعه
+        if (name === '_blank' || specs) return null;
+        return _windowOpen(url, name, specs);
+    };
 </script>
 <script src="script.js"></script>
 </body>
