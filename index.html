@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0T620V9PM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Q0T620V9PM');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- كود إثبات ملكية جوجل سيرش كونسول المربوط بالموبايل -->
     <meta name="google-site-verification" content="lYHJLcKHKi0e7VYFhCiUaumoMnaL4BSszPrXpzShF-U" />
     
     <title>KwikX Mail - Ultra Premium</title>
@@ -13,7 +21,6 @@
 </head>
 <body>
 
-<!-- الهيدر العلوي -->
 <div class="header">
     <div class="lang-switch">
         <div class="lang-dropdown">
@@ -28,12 +35,9 @@
     <div class="logo">Kwik <span>X</span> Mail</div>
 </div>
 
-<!-- الإعلان العلوي - يتحمل بعد الصفحة عشان ميأثرش على التحميل -->
 <div class="ad-container top-ad" id="topAdContainer"></div>
 
-<!-- واجهة التطبيق الرئيسية (مجرّدة ومسنتّرة في النص) -->
 <div class="main-wrapper">
-    <!-- كارت توليد البريد -->
     <div class="card">
         <div class="timer-badge">
             <i class="fas fa-stopwatch"></i> <span id="timeDisplay">10:00</span>
@@ -62,7 +66,6 @@
         </div>
     </div>
     
-    <!-- كارت صندوق الوارد -->
     <div class="card" style="min-height: 350px; display: flex; flex-direction: column;">
         <h3 style="border-bottom: 1px solid #333; padding-bottom: 15px; margin-top: 0; display: flex; align-items: center;">
             <i class="fas fa-inbox" style="margin-inline-end: 10px;"></i> <span class="t" data-ar="صندوق الوارد" data-en="Inbox">Inbox</span> 
@@ -74,7 +77,6 @@
     </div>
 </div>
 
-<!-- الإعلان السفلي المتجاوب (تحت لوحة التحكم وقبل المقالات) -->
 <div class="ad-container bottom-ad">
     <div class="ad-desktop">
         <script>
@@ -90,7 +92,6 @@
     </div>
 </div>
 
-<!-- شبكة المقالات الاحترافية الموسعة جداً لـ SEO -->
 <div class="articles-grid">
     <div class="art-box" onclick="toggleArticle(this)">
         <div class="art-img"><i class="fas fa-shield-alt"></i></div>
@@ -137,7 +138,11 @@
 </div>
 
 <div class="faq-section">
-    <h3 class="faq-title t" data-ar="الأسئلة الشائعة" data-en="Frequently Asked Questions">Frequently Asked Questions</h3شice that allows you to receive messages at a temporary address to protect your real email.</div>
+    <h3 class="faq-title t" data-ar="الأسئلة الشائعة" data-en="Frequently Asked Questions">Frequently Asked Questions</h3>
+    
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+        <h4 class="faq-header"><span class="t" data-ar="ما هو البريد المؤقت؟" data-en="What is temporary email?">What is temporary email?</span> <i class="fas fa-chevron-down"></i></h4>
+        <div class="faq-answer t" data-ar="هو خدمة تتيح لك استقبال الرسائل على عنوان بريد مؤقت لحماية بريدك الإلكتروني الحقيقي." data-en="A service that allows you to receive messages at a temporary address to protect your real email.">A service that allows you to receive messages at a temporary address to protect your real email.</div>
     </div>
     
     <div class="faq-item" onclick="this.classList.toggle('active')">
@@ -146,7 +151,7 @@
     </div>
 
     <div class="faq-item" onclick="this.classList.toggle('active')">
-        <h4 class="faq-header"><span class="t" data-ar="لماذا أحتاج إلى استخدام بريد مؤقت؟" data-en="Why do I need a temporary email?">Why do I need a temporary email?</span> <i class="fas fa-chevron-down"></i></h4>
+        <h4 class="faq-header"><span class="t" data-ar="لماذا أحتاج إلى استخدام بريد مؤقت?" data-en="Why do I need a temporary email?">Why do I need a temporary email?</span> <i class="fas fa-chevron-down"></i></h4>
         <div class="faq-answer t" data-ar="للتسجيل في المواقع والتطبيقات التي تطلب التحقق من البريد الإلكتروني دون الحاجة لكشف هويتك، أو لتجنب استقبال رسائل تسويقية مزعجة." data-en="To register on websites and apps that require email verification without revealing your identity, or to avoid spam marketing emails.">To register on websites and apps that require email verification without revealing your identity, or to avoid spam marketing emails.</div>
     </div>
 
