@@ -1,209 +1,656 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0T620V9PM"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'G-Q0T620V9PM');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-Q0T620V9PM');
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="lYHJLcKHKi0e7VYFhCiUaumoMnaL4BSszPrXpzShF-U" />
-    <title>KwikX Mail - Free Temporary Email</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+
+    <meta
+        name="description"
+        content="Create a temporary email address and receive messages in a simple inbox. Keep your primary email address separate from low-risk online sign-ups."
+    >
+
+    <meta name="theme-color" content="#0b0b0b">
+    <meta name="google-site-verification" content="lYHJLcKHKi0e7VYFhCiUaumoMnaL4BSszPrXpzShF-U">
+
+    <title>KwikX Mail — Free Temporary Email Inbox</title>
+
+    <!-- External stylesheets -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Cairo:wght@600;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="style.css">
 
     <style>
         @keyframes pulseX {
-            0%, 100% { 
-                text-shadow: 0 0 8px var(--green, #00f260), 0 0 15px var(--green, #00f260); 
-                opacity: 1; 
+            0%, 100% {
+                text-shadow: 0 0 8px #00dc82, 0 0 20px rgba(0, 220, 130, .5);
+                opacity: 1;
             }
-            50% { 
-                text-shadow: 0 0 2px var(--green, #00f260); 
-                opacity: 0.5; 
+
+            50% {
+                text-shadow: none;
+                opacity: .4;
             }
         }
+
         .logo span.magic-x {
-            font-style: normal !important; /* عشان نلغي الميلان ويكون معدول */
             display: inline-block;
-            margin: 0 5px; /* مسافة من اليمين والشمال */
-            color: var(--green, #00f260);
-            animation: pulseX 1.5s infinite ease-in-out; /* حركة النبض والإنارة */
+            margin: 0 4px;
+            color: #00dc82;
+            font-style: italic;
+            animation: pulseX 2.5s infinite ease-in-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .logo span.magic-x {
+                animation: none;
+            }
         }
     </style>
 </head>
-<body>
 
-<div class="header">
-    <div class="lang-switch">
-        <div class="lang-dropdown">
-            <span class="lang-btn"><span id="currentLangText">English</span> <i class="fas fa-chevron-down" style="font-size:.75rem;margin-inline-start:5px;"></i></span>
-            <div class="dropdown-content">
-                <span class="lang-option" onclick="switchLanguage('en')">English</span>
-                <span class="lang-option" onclick="switchLanguage('ar')">العربية</span>
+<body id="top">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="lang-switch">
+            <div class="lang-dropdown">
+                <span class="lang-btn">
+                    <span id="currentLangText">English</span>
+                    <i
+                        class="fas fa-chevron-down"
+                        aria-hidden="true"
+                        style="font-size:.75rem; margin-inline-start:5px;"
+                    ></i>
+                </span>
+
+                <div class="dropdown-content">
+                    <span
+                        class="lang-option"
+                        role="button"
+                        tabindex="0"
+                        onclick="switchLanguage('en')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchLanguage('en')}"
+                    >English</span>
+
+                    <span
+                        class="lang-option"
+                        role="button"
+                        tabindex="0"
+                        onclick="switchLanguage('ar')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchLanguage('ar')}"
+                    >العربية</span>
+                </div>
             </div>
         </div>
-        <span class="lang-btn"><span class="t" data-ar="الحساب" data-en="Account">Account</span> <i class="fas fa-user" style="margin-inline-start:5px;"></i></span>
-    </div>
-    <div class="logo">Kwik<span class="magic-x">X</span>Mail</div>
-</div>
 
-<div class="ad-container top-ad" id="topAdContainer"></div>
+        <div class="logo" aria-label="KwikX Mail">
+            Kwik<span class="magic-x">X</span>Mail
+        </div>
+    </header>
 
-<div class="main-wrapper">
 
-    <div class="card">
-        <h3 style="text-align:center;color:rgba(255,255,255,.4);font-size:.85rem;margin-bottom:4px;letter-spacing:2.5px;font-weight:600;" class="t" data-ar="بريدك المؤقت الخاص" data-en="YOUR TEMPORARY EMAIL">YOUR TEMPORARY EMAIL</h3>
+    <!-- MAIN APPLICATION -->
+    <main class="main-wrapper">
 
-        <div class="email-container">
-            <div class="action-icons">
-                <i class="far fa-copy" title="Copy" onclick="copyEmail()"></i>
-                <i class="fas fa-qrcode" title="QR Code"></i>
+        <!-- EMAIL ADDRESS CARD -->
+        <section class="card" aria-labelledby="emailCardTitle">
+
+            <h3
+                id="emailCardTitle"
+                class="t"
+                data-ar="بريدك الإلكتروني المؤقت"
+                data-en="YOUR TEMPORARY EMAIL"
+                style="text-align:center; color:rgba(255,255,255,.4); font-size:.85rem; margin-bottom:4px; letter-spacing:2.5px; font-weight:600;"
+            >YOUR TEMPORARY EMAIL</h3>
+
+            <div class="email-container">
+
+                <div class="action-icons">
+                    <i
+                        class="far fa-copy"
+                        title="Copy email address"
+                        role="button"
+                        tabindex="0"
+                        aria-label="Copy email address"
+                        onclick="copyEmail()"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();copyEmail()}"
+                    ></i>
+                </div>
+
+                <!--
+                    The address is generated by the email service.
+                    Users should not edit the local display independently
+                    of the actual email account.
+                -->
+                <input
+                    type="text"
+                    id="emailName"
+                    class="email-input"
+                    value=""
+                    placeholder="Creating your email..."
+                    aria-label="Generated email username"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    readonly
+                >
+
+                <select
+                    id="domainSelect"
+                    class="domain-select"
+                    aria-label="Generated email domain"
+                    disabled
+                >
+                    <option value="@mail.tm">@mail.tm</option>
+                </select>
+
             </div>
-            <input type="text" id="emailName" value="pro_user" class="email-input" onkeyup="updateFullEmail()">
-            <select id="domainSelect" class="domain-select" onchange="updateFullEmail()">
-                <option value="@mail.tm">@mail.tm</option>
-            </select>
+
+            <input
+                type="hidden"
+                id="fullEmailHidden"
+                value=""
+            >
+
+            <div class="buttons-container">
+
+                <button
+                    type="button"
+                    class="btn-icon"
+                    onclick="generateNewEmail()"
+                >
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    <span
+                        class="t"
+                        data-ar="إنشاء بريد"
+                        data-en="Generate"
+                    >Generate</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-icon"
+                    onclick="copyEmail()"
+                >
+                    <i class="far fa-copy" aria-hidden="true"></i>
+                    <span
+                        class="t"
+                        data-ar="نسخ"
+                        data-en="Copy"
+                    >Copy</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-icon"
+                    onclick="manualRefresh()"
+                >
+                    <i
+                        class="fas fa-sync-alt"
+                        id="refreshIcon"
+                        aria-hidden="true"
+                    ></i>
+
+                    <span
+                        class="t"
+                        data-ar="تحديث"
+                        data-en="Refresh"
+                    >Refresh</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-icon"
+                    onclick="deleteEmail()"
+                >
+                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
+
+                    <span
+                        class="t"
+                        data-ar="مسح البريد الحالي"
+                        data-en="Clear"
+                    >Clear</span>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- INBOX CARD -->
+        <section
+            class="card"
+            aria-labelledby="inboxTitle"
+            style="min-height:300px; display:flex; flex-direction:column;"
+        >
+
+            <h3 class="inbox-title" id="inboxTitle">
+                <i class="fas fa-inbox" aria-hidden="true"></i>
+
+                <span
+                    class="t"
+                    data-ar="صندوق الوارد"
+                    data-en="Inbox"
+                >Inbox</span>
+            </h3>
+
+            <div
+                id="inboxMessages"
+                aria-live="polite"
+                aria-busy="false"
+                style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:rgba(255,255,255,.25); font-size:1rem; text-align:center;"
+            >
+                <span
+                    class="t"
+                    data-ar="جاري تجهيز صندوق البريد..."
+                    data-en="Preparing your inbox..."
+                >Preparing your inbox...</span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- INFORMATIONAL CONTENT -->
+    <section class="articles-grid" aria-label="About KwikX Mail">
+
+        <!-- CARD 1 -->
+        <article
+            class="art-box"
+            onclick="toggleArticle(this)"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle(this)}"
+        >
+            <div class="art-img">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </div>
+
+            <h4
+                class="t"
+                data-ar="عنوان بريد مؤقت بسهولة"
+                data-en="A Temporary Email Address"
+            >A Temporary Email Address</h4>
+
+            <div
+                class="art-content t"
+                data-ar="استخدم عنوان بريد مؤقت لاستقبال الرسائل في الحالات المناسبة، مثل التسجيلات منخفضة المخاطر، بدلًا من مشاركة بريدك الأساسي في كل مرة. البريد المؤقت ليس بديلًا مناسبًا لحساباتك المهمة أو الرسائل الحساسة."
+                data-en="Use a temporary email address for suitable situations, such as low-risk sign-ups, instead of sharing your primary address every time. Temporary email is not a suitable replacement for important accounts or sensitive communications."
+            >Use a temporary email address for suitable situations, such as low-risk sign-ups, instead of sharing your primary address every time. Temporary email is not a suitable replacement for important accounts or sensitive communications.</div>
+        </article>
+
+
+        <!-- CARD 2 -->
+        <article
+            class="art-box"
+            onclick="toggleArticle(this)"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle(this)}"
+        >
+            <div class="art-img">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+            </div>
+
+            <h4
+                class="t"
+                data-ar="متابعة الرسائل الواردة"
+                data-en="Check for Incoming Messages"
+            >Check for Incoming Messages</h4>
+
+            <div
+                class="art-content t"
+                data-ar="يمكن للصفحة التحقق دوريًا من الرسائل الجديدة أثناء استخدام صندوق البريد. قد يستغرق وصول الرسالة وقتًا، ويعتمد ذلك على المرسل وخدمة البريد المستخدمة. ميزة استخراج أكواد التحقق تلقائيًا غير متاحة حاليًا."
+                data-en="The page can periodically check for new messages while your inbox is active. Delivery time depends on the sender and the email service being used. Automatic OTP extraction is not currently available."
+            >The page can periodically check for new messages while your inbox is active. Delivery time depends on the sender and the email service being used. Automatic OTP extraction is not currently available.</div>
+        </article>
+
+
+        <!-- CARD 3 -->
+        <article
+            class="art-box"
+            onclick="toggleArticle(this)"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle(this)}"
+        >
+            <div class="art-img">
+                <i class="fas fa-globe" aria-hidden="true"></i>
+            </div>
+
+            <h4
+                class="t"
+                data-ar="النطاقات المتاحة"
+                data-en="Available Email Domains"
+            >Available Email Domains</h4>
+
+            <div
+                class="art-content t"
+                data-ar="تعتمد عناوين البريد المتاحة حاليًا على مزود خدمة البريد الخارجي الذي يستخدمه الموقع. قد تتغير النطاقات المتاحة، وقد ترفض بعض المواقع التسجيل باستخدام عناوين البريد المؤقت."
+                data-en="The email addresses currently available depend on the third-party email service used by this website. Available domains may change, and some websites may reject temporary email addresses."
+            >The email addresses currently available depend on the third-party email service used by this website. Available domains may change, and some websites may reject temporary email addresses.</div>
+        </article>
+
+
+        <!-- CARD 4 -->
+        <article
+            class="art-box"
+            onclick="toggleArticle(this)"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle(this)}"
+        >
+            <div class="art-img">
+                <i class="fas fa-inbox" aria-hidden="true"></i>
+            </div>
+
+            <h4
+                class="t"
+                data-ar="حافظ على ترتيب بريدك الأساسي"
+                data-en="Keep Your Main Inbox Organized"
+            >Keep Your Main Inbox Organized</h4>
+
+            <div
+                class="art-content t"
+                data-ar="يمكن أن يساعدك البريد المؤقت في فصل بعض التسجيلات غير المهمة عن بريدك الأساسي، وتقليل الرسائل التسويقية التي قد تصلك إليه. استخدمه فقط في الحالات التي تسمح فيها الخدمة الأخرى بالبريد المؤقت."
+                data-en="Temporary email can help separate some low-priority sign-ups from your primary inbox and reduce the marketing messages sent there. Use it only where the other service permits temporary addresses."
+            >Temporary email can help separate some low-priority sign-ups from your primary inbox and reduce the marketing messages sent there. Use it only where the other service permits temporary addresses.</div>
+        </article>
+
+
+        <!-- CARD 5 -->
+        <article
+            class="art-box"
+            onclick="toggleArticle(this)"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle(this)}"
+        >
+            <div class="art-img">
+                <i class="fas fa-user-shield" aria-hidden="true"></i>
+            </div>
+
+            <h4
+                class="t"
+                data-ar="استخدام مسؤول للبريد المؤقت"
+                data-en="Use Temporary Email Responsibly"
+            >Use Temporary Email Responsibly</h4>
+
+            <div
+                class="art-content t"
+                data-ar="البريد المؤقت مناسب لبعض الاستخدامات البسيطة والاختبارات المسموح بها، لكنه لا يضمن إخفاء الهوية بالكامل ولا يتجاوز قواعد المواقع الأخرى. قد تمنع بعض الخدمات استخدام عناوين البريد المؤقت."
+                data-en="Temporary email can be useful for simple, permitted use cases and testing, but it does not guarantee complete anonymity or override another website's rules. Some services may block temporary addresses."
+            >Temporary email can be useful for simple, permitted use cases and testing, but it does not guarantee complete anonymity or override another website's rules. Some services may block temporary addresses.</div>
+        </article>
+
+
+        <!-- CARD 6 -->
+        <article
+            class="art-box"
+            onclick="toggleArticle(this)"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle(this)}"
+        >
+            <div class="art-img">
+                <i class="fas fa-lock" aria-hidden="true"></i>
+            </div>
+
+            <h4
+                class="t"
+                data-ar="اعرف حدود الخصوصية"
+                data-en="Understand the Privacy Limits"
+            >Understand the Privacy Limits</h4>
+
+            <div
+                class="art-content t"
+                data-ar="يعتمد الموقع حاليًا على واجهة برمجية خارجية للبريد الإلكتروني، ولذلك لا ينبغي افتراض أن الرسائل لا تُخزَّن أو أنها تُحذف نهائيًا بمجرد إغلاق الصفحة. لا تستخدم البريد المؤقت لاستقبال كلمات المرور أو البيانات المالية أو أي معلومات حساسة."
+                data-en="This website currently relies on a third-party email API, so you should not assume messages are never stored or permanently erased when you close the page. Do not use temporary email for passwords, financial information, or other sensitive data."
+            >This website currently relies on a third-party email API, so you should not assume messages are never stored or permanently erased when you close the page. Do not use temporary email for passwords, financial information, or other sensitive data.</div>
+        </article>
+
+    </section>
+
+
+    <!-- FAQ -->
+    <section class="faq-section" aria-labelledby="faqTitle">
+
+        <h3
+            class="faq-title t"
+            id="faqTitle"
+            data-ar="الأسئلة الشائعة"
+            data-en="Frequently Asked Questions"
+        >Frequently Asked Questions</h3>
+
+
+        <!-- FAQ 1 -->
+        <div
+            class="faq-item"
+            onclick="this.classList.toggle('active')"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.classList.toggle('active')}"
+        >
+            <h4 class="faq-header">
+                <span
+                    class="t"
+                    data-ar="ما هو البريد الإلكتروني المؤقت؟"
+                    data-en="What is a temporary email?"
+                >What is a temporary email?</span>
+
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </h4>
+
+            <div
+                class="faq-answer t"
+                data-ar="هو عنوان بريد مخصص لاستقبال الرسائل مؤقتًا، ويمكن أن يساعدك في عدم مشاركة بريدك الأساسي في بعض التسجيلات غير المهمة."
+                data-en="It is an email address used to receive messages temporarily. It can help you avoid sharing your primary address for some low-priority sign-ups."
+            >It is an email address used to receive messages temporarily. It can help you avoid sharing your primary address for some low-priority sign-ups.</div>
         </div>
-        <input type="hidden" id="fullEmailHidden" value="">
 
-        <div class="buttons-container">
-            <button class="btn-icon" onclick="generateNewEmail()"><i class="fas fa-plus"></i> <span class="t" data-ar="إنشاء" data-en="Generate">Generate</span></button>
-            <button class="btn-icon" onclick="copyEmail()"><i class="far fa-copy"></i> <span class="t" data-ar="نسخ" data-en="Copy">Copy</span></button>
-            <button class="btn-icon" onclick="manualRefresh()"><i class="fas fa-sync-alt" id="refreshIcon"></i> <span class="t" data-ar="تحديث" data-en="Refresh">Refresh</span></button>
-            <button class="btn-icon" onclick="deleteEmail()"><i class="fas fa-trash-alt"></i> <span class="t" data-ar="حذف" data-en="Delete">Delete</span></button>
+
+        <!-- FAQ 2 -->
+        <div
+            class="faq-item"
+            onclick="this.classList.toggle('active')"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.classList.toggle('active')}"
+        >
+            <h4 class="faq-header">
+                <span
+                    class="t"
+                    data-ar="هل البريد المؤقت آمن للاستخدام؟"
+                    data-en="Is temporary email safe to use?"
+                >Is temporary email safe to use?</span>
+
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </h4>
+
+            <div
+                class="faq-answer t"
+                data-ar="قد يكون مناسبًا لبعض الاستخدامات البسيطة، لكنه ليس مناسبًا للبيانات الحساسة أو الحسابات المهمة. لا تفترض أن الرسائل خاصة بالكامل أو أنها تُحذف فورًا من خوادم مزود الخدمة."
+                data-en="It may be suitable for some simple use cases, but not for sensitive information or important accounts. Do not assume messages are completely private or immediately deleted from the service provider's servers."
+            >It may be suitable for some simple use cases, but not for sensitive information or important accounts. Do not assume messages are completely private or immediately deleted from the service provider's servers.</div>
         </div>
-    </div>
 
-    <div class="card" style="min-height:300px;display:flex;flex-direction:column;">
-        <h3 class="inbox-title">
-            <i class="fas fa-inbox"></i>
-            <span class="t" data-ar="صندوق الوارد" data-en="Inbox">Inbox</span>
-            <i class="fas fa-circle-notch fa-spin" style="font-size:1rem;margin-inline-start:12px;color:var(--green);opacity:.6;"></i>
-        </h3>
-        <div id="inboxMessages" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.25);font-size:1rem;text-align:center;">
-            <span class="t" data-ar="الصندوق فارغ حالياً. في انتظار رسائل جديدة..." data-en="Inbox is empty. Waiting for new messages...">Inbox is empty. Waiting for new messages...</span>
+
+        <!-- FAQ 3 -->
+        <div
+            class="faq-item"
+            onclick="this.classList.toggle('active')"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.classList.toggle('active')}"
+        >
+            <h4 class="faq-header">
+                <span
+                    class="t"
+                    data-ar="لماذا أستخدم بريدًا مؤقتًا؟"
+                    data-en="Why would I use a temporary email?"
+                >Why would I use a temporary email?</span>
+
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </h4>
+
+            <div
+                class="faq-answer t"
+                data-ar="قد يفيدك في التسجيلات منخفضة المخاطر أو الاختبارات المسموح بها، ويساعدك على فصلها عن بريدك الأساسي. لكن بعض المواقع لا تقبل عناوين البريد المؤقت."
+                data-en="It can be useful for low-risk sign-ups and permitted testing, helping you keep them separate from your primary inbox. Some websites do not accept temporary email addresses."
+            >It can be useful for low-risk sign-ups and permitted testing, helping you keep them separate from your primary inbox. Some websites do not accept temporary email addresses.</div>
         </div>
-    </div>
-</div>
 
-<div class="ad-container bottom-ad" id="bottomAdContainer"></div>
 
-<div class="articles-grid">
-    <div class="art-box" onclick="toggleArticle(this)">
-        <div class="art-img"><i class="fas fa-shield-alt"></i></div>
-        <h4 class="t" data-ar="حماية خصوصيتك المطلقة ومنع التتبع" data-en="Ultimate Privacy & Identity Protection">Ultimate Privacy & Identity Protection</h4>
-        <div class="art-content t"
-             data-ar="في العصر الرقمي الحديث، أصبحت حماية هويتك الشخصية أمراً بالغ الأهمية أكثر من أي وقت مضى. يعمل Kwik X Mail كدرع قوي يمنع الشركات الكبرى، أدوات التتبع، والجهات الخبيثة من جمع عنوان بريدك الإلكتروني الحقيقي. كل صندوق بريد يتم إنشاؤه يكون معزولاً تماماً، ومشفراً بعناية، ومؤقتاً بشكل صارم لضمان بقاء بياناتك الخاصة لك وحدك."
-             data-en="In the modern digital landscape, safeguarding your personal identity is more critical than ever. Kwik X Mail acts as a robust shield, preventing unauthorized corporations, trackers, and malicious entities from harvesting your real email address. Every single inbox generated is entirely isolated, heavily encrypted, and strictly temporary to ensure that your private data remains yours alone.">In the modern digital landscape, safeguarding your personal identity is more critical than ever. Kwik X Mail acts as a robust shield, preventing unauthorized corporations, trackers, and malicious entities from harvesting your real email address. Every single inbox generated is entirely isolated, heavily encrypted, and strictly temporary to ensure that your private data remains yours alone.</div>
-    </div>
-    <div class="art-box" onclick="toggleArticle(this)">
-        <div class="art-img"><i class="fas fa-bolt"></i></div>
-        <h4 class="t" data-ar="تسريع استخراج أكواد التحقق الفورية" data-en="Lightning-Fast OTP & Code Extraction">Lightning-Fast OTP & Code Extraction</h4>
-        <div class="art-content t"
-             data-ar="هل سئمت من تحديث صفحات البريد العادية فقط للعثور على رمز تفعيل بسيط؟ تم تصميم منصتنا بخوارزمية استخراج تلقائي فائقة السرعة. بمجرد وصول رمز التحقق (OTP) أو رابط التفعيل إلى صندوقك المؤقت، يقوم نظامنا بعزل الرمز فوراً وإبرازه وعرضه بوضوح."
-             data-en="Tired of refreshing standard email layouts just to find a simple verification code? Our platform is engineered with a lightning-fast auto-extraction algorithm. The moment an OTP or verification link hits your temporary inbox, our system instantly isolates the code, highlights it, and displays it clearly at the top of your layout so you can use it without digging through raw message data.">Tired of refreshing standard email layouts just to find a simple verification code? Our platform is engineered with a lightning-fast auto-extraction algorithm. The moment an OTP or verification link hits your temporary inbox, our system instantly isolates the code, highlights it, and displays it clearly at the top of your layout so you can use it without digging through raw message data.</div>
-    </div>
-    <div class="art-box" onclick="toggleArticle(this)">
-        <div class="art-img"><i class="fas fa-globe"></i></div>
-        <h4 class="t" data-ar="نطاقات بريدية متعددة ومحدثة باستمرار" data-en="Extensive Pool of Premium Private Domains">Extensive Pool of Premium Private Domains</h4>
-        <div class="art-content t"
-             data-ar="تحاول العديد من المواقع والمنصات الشهيرة حظر خدمات البريد المؤقت عن طريق وضع النطاقات المعروفة في القوائم السوداء. ولمواجهة ذلك، يوفر Kwik X Mail شبكة واسعة ومتجددة ديناميكياً من النطاقات الخاصة والمميزة."
-             data-en="Many mainstream websites try to block temporary email services by blacklisting known domains. To fight this, Kwik X Mail maintains an extensive, dynamically shifting pool of premium private domains. Our technical team continuously monitors domain acceptance rates and regularly rotates old addresses with clean, brand-new alternatives.">Many mainstream websites try to block temporary email services by blacklisting known domains. To fight this, Kwik X Mail maintains an extensive, dynamically shifting pool of premium private domains. Our technical team continuously monitors domain acceptance rates and regularly rotates old addresses with clean, brand-new alternatives.</div>
-    </div>
-    <div class="art-box" onclick="toggleArticle(this)">
-        <div class="art-img"><i class="fas fa-ban"></i></div>
-        <h4 class="t" data-ar="التخلص النهائي من الرسائل المزعجة" data-en="Eliminate Spam and Marketing Clutter">Eliminate Spam and Marketing Clutter</h4>
-        <div class="art-content t"
-             data-ar="كل عملية تسجيل عبر الإنترنت، أو تحميل كتاب إلكتروني مجاني، أو تسجيل في شبكة واي فاي عامة تأتي مع ضريبة خفية: رسائل تسويقية لا تنتهي. باستخدامك لـ Kwik X Mail في هذه التسجيلات الجانبية، أنت تقضي على الإزعاج من مصدره."
-             data-en="Every online sign-up, free e-book download, or public Wi-Fi registration usually comes with a hidden catch: endless marketing spam and promotional newsletters that clutter your real inbox forever. By utilizing Kwik X Mail for these non-essential registrations, you eliminate the noise at the source and keep your primary personal and business mail completely clean.">Every online sign-up, free e-book download, or public Wi-Fi registration usually comes with a hidden catch: endless marketing spam and promotional newsletters that clutter your real inbox forever. By utilizing Kwik X Mail for these non-essential registrations, you eliminate the noise at the source and keep your primary personal and business mail completely clean.</div>
-    </div>
-    <div class="art-box" onclick="toggleArticle(this)">
-        <div class="art-img"><i class="fas fa-user-secret"></i></div>
-        <h4 class="t" data-ar="تجاوز تأكيدات الحسابات بهوية مجهولة" data-en="Bypass Verification with Absolute Anonymity">Bypass Verification with Absolute Anonymity</h4>
-        <div class="art-content t"
-             data-ar="تصفح الخدمات عبر الإنترنت يجبرك غالباً على الدخول في حلقات تحقق معقدة. سواء كنت تريد اختبار تطبيق برمجيات جديد، أو الوصول إلى مشاركة في منتدى مغلق، يتيح لك Kwik X Mail تجاوز نقاط التفتيش هذه بهوية مجهولة تماماً."
-             data-en="Navigating online services often forces you to jump through aggressive verification loops that feel highly invasive. Whether you want to test a new software application, access a gated forum post, or view restricted premium content, Kwik X Mail allows you to bypass these identity checkpoints with absolute anonymity without leaving any digital footprint.">Navigating online services often forces you to jump through aggressive verification loops that feel highly invasive. Whether you want to test a new software application, access a gated forum post, or view restricted premium content, Kwik X Mail allows you to bypass these identity checkpoints with absolute anonymity without leaving any digital footprint.</div>
-    </div>
-    <div class="art-box" onclick="toggleArticle(this)">
-        <div class="art-img"><i class="fas fa-trash-restore"></i></div>
-        <h4 class="t" data-ar="تدمير وحذف تلقائي آمن للرسائل" data-en="Zero-Retention Secure Automated Destruction">Zero-Retention Secure Automated Destruction</h4>
-        <div class="art-content t"
-             data-ar="الأمان الحقيقي يعني أنه بمجرد أن تؤدي البيانات غرضها المؤقت، يجب أن تختفي تماماً. يعتمد Kwik X Mail على بنية تحتية صارمة لا تحتفظ بأي بيانات. تخضع جميع الرسائل الواردة لدورة مسح آلي نهائية فورية."
-             data-en="True security means that once data has served its temporary purpose, it ceases to exist. Kwik X Mail operates on a strict zero-retention infrastructure. All incoming messages, logs, attachments, and generated metadata are subject to a hard automated wipe cycle. Your messages are permanently purged from our servers, leaving zero trails behind.">True security means that once data has served its temporary purpose, it ceases to exist. Kwik X Mail operates on a strict zero-retention infrastructure. All incoming messages, logs, attachments, and generated metadata are subject to a hard automated wipe cycle. Your messages are permanently purged from our servers, leaving zero trails behind.</div>
-    </div>
-</div>
+        <!-- FAQ 4 -->
+        <div
+            class="faq-item"
+            onclick="this.classList.toggle('active')"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.classList.toggle('active')}"
+        >
+            <h4 class="faq-header">
+                <span
+                    class="t"
+                    data-ar="هل يمكنني إرسال رسائل من هذا البريد؟"
+                    data-en="Can I send messages from this email?"
+                >Can I send messages from this email?</span>
 
-<div class="faq-section">
-    <h3 class="faq-title t" data-ar="الأسئلة الشائعة" data-en="Frequently Asked Questions">Frequently Asked Questions</h3>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </h4>
 
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <h4 class="faq-header"><span class="t" data-ar="ما هو البريد الإلكتروني المؤقت؟" data-en="What is a temporary email?">What is a temporary email?</span> <i class="fas fa-chevron-down"></i></h4>
-        <div class="faq-answer t" data-ar="هو خدمة بريد إلكتروني مؤقتة تتيح لك استقبال الرسائل على عنوان بريد مؤقت لحماية بريدك الحقيقي." data-en="A temporary email is a disposable service that allows you to receive messages at a temporary address to protect your real email.">A temporary email is a disposable service that allows you to receive messages at a temporary address to protect your real email.</div>
-    </div>
+            <div
+                class="faq-answer t"
+                data-ar="لا، الوظائف الحالية للموقع مخصصة لاستقبال الرسائل وعرضها فقط."
+                data-en="No. The current website functionality is designed for receiving and viewing messages only."
+            >No. The current website functionality is designed for receiving and viewing messages only.</div>
+        </div>
 
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <h4 class="faq-header"><span class="t" data-ar="هل البريد المؤقت آمن؟" data-en="Is the temporary email secure?">Is the temporary email secure?</span> <i class="fas fa-chevron-down"></i></h4>
-        <div class="faq-answer t" data-ar="نعم، الخدمة مصممة لحماية خصوصيتك بالكامل ويتم حذف الرسائل برمجياً." data-en="Yes, the service is designed to fully protect your privacy, and messages are deleted programmatically.">Yes, the service is designed to fully protect your privacy, and messages are deleted programmatically.</div>
-    </div>
 
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <h4 class="faq-header"><span class="t" data-ar="لماذا أحتاج إلى استخدام بريد مؤقت؟" data-en="Why do I need a temporary email?">Why do I need a temporary email?</span> <i class="fas fa-chevron-down"></i></h4>
-        <div class="faq-answer t" data-ar="للتسجيل في المواقع والتطبيقات التي تطلب التحقق من البريد الإلكتروني دون الحاجة لكشف هويتك، أو لتجنب استقبال رسائل تسويقية مزعجة." data-en="To register on websites and apps that require email verification without revealing your identity, or to avoid spam marketing emails.">To register on websites and apps that require email verification without revealing your identity, or to avoid spam marketing emails.</div>
-    </div>
+        <!-- FAQ 5 -->
+        <div
+            class="faq-item"
+            onclick="this.classList.toggle('active')"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.classList.toggle('active')}"
+        >
+            <h4 class="faq-header">
+                <span
+                    class="t"
+                    data-ar="هل يستخرج الموقع أكواد التحقق تلقائيًا؟"
+                    data-en="Does the site automatically extract verification codes?"
+                >Does the site automatically extract verification codes?</span>
 
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <h4 class="faq-header"><span class="t" data-ar="هل يمكنني الرد على الرسائل من خلال هذا البريد؟" data-en="Can I reply to messages using this email?">Can I reply to messages using this email?</span> <i class="fas fa-chevron-down"></i></h4>
-        <div class="faq-answer t" data-ar="لا، الخدمة مصممة حالياً لاستقبال الرسائل فقط لضمان أقصى درجات الأمان." data-en="No, the service is currently designed to receive messages only to ensure maximum security and prevent spam.">No, the service is currently designed to receive messages only to ensure maximum security and prevent spam.</div>
-    </div>
-</div>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </h4>
 
-<footer>
-    <p class="t" data-ar="Kwik X Mail &copy; 2026 - جميع الحقوق محفوظة" data-en="Kwik X Mail &copy; 2026 - All Rights Reserved">Kwik X Mail &copy; 2026 - All Rights Reserved</p>
-    <p style="margin-top:10px;">
-        <a href="#" class="t" data-ar="الرئيسية" data-en="Home">Home</a> |
-        <a href="#" class="t" data-ar="اتصل بنا" data-en="Contact Us">Contact Us</a> |
-        <a href="#" class="t" data-ar="سياسة الخصوصية" data-en="Privacy Policy">Privacy Policy</a>
-    </p>
-</footer>
+            <div
+                class="faq-answer t"
+                data-ar="الميزة دي غير متاحة حاليًا. يمكنك فتح الرسالة وقراءة محتواها بنفسك إذا وصلت إلى صندوق البريد."
+                data-en="That feature is not currently available. You can open a message and read its content manually if it arrives in your inbox."
+            >That feature is not currently available. You can open a message and read its content manually if it arrives in your inbox.</div>
+        </div>
 
-<script>
-window.addEventListener('load', function() {
-    setTimeout(function() {
-        var isMobile = window.innerWidth <= 768;
-        function loadAd(containerId, key, w, h) {
-            var c = document.getElementById(containerId);
-            if (!c) return;
-            atOptions = { 'key': key, 'format': 'iframe', 'height': h, 'width': w, 'params': {} };
-            var wrap = document.createElement('div');
-            wrap.style.cssText = 'width:' + w + 'px;height:' + h + 'px;overflow:hidden;';
-            c.appendChild(wrap);
-            var s = document.createElement('script');
-            s.src = 'https://www.highperformanceformat.com/' + key + '/invoke.js';
-            wrap.appendChild(s);
-        }
-        if (isMobile) {
-            loadAd('topAdContainer',    '9fa7d799c17b66283ab9df4f13f1a26f', 320, 50);
-            loadAd('bottomAdContainer', '9fa7d799c17b66283ab9df4f13f1a26f', 320, 50);
-        } else {
-            loadAd('topAdContainer',    '5642a74574c1515ae764cfb39798cab6', 728, 90);
-            loadAd('bottomAdContainer', '5642a74574c1515ae764cfb39798cab6', 728, 90);
-        }
-    }, 1500);
 
-    var _open = window.open;
-    window.open = function(url, name, specs) {
-        if (name === '_blank' || specs) return null;
-        return _open(url, name, specs);
-    };
-});
-</script>
-<script src="script.js"></script>
+        <!-- FAQ 6 -->
+        <div
+            class="faq-item"
+            onclick="this.classList.toggle('active')"
+            role="button"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.classList.toggle('active')}"
+        >
+            <h4 class="faq-header">
+                <span
+                    class="t"
+                    data-ar="هل مسح البريد يحذف الرسائل نهائيًا من الخادم؟"
+                    data-en="Does clearing an address permanently delete messages from the server?"
+                >Does clearing an address permanently delete messages from the server?</span>
+
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </h4>
+
+            <div
+                class="faq-answer t"
+                data-ar="زر المسح في النسخة الحالية يزيل بيانات البريد من واجهة الصفحة ويوقف تحديث صندوقه. هذا وحده لا يضمن حذف الحساب أو الرسائل من خوادم مزود البريد."
+                data-en="In the current version, the Clear button removes the email details from the page and stops inbox updates. This alone does not guarantee that the account or messages are deleted from the email provider's servers."
+            >In the current version, the Clear button removes the email details from the page and stops inbox updates. This alone does not guarantee that the account or messages are deleted from the email provider's servers.</div>
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p
+            class="t"
+            data-ar="KwikX Mail © 2026 — جميع الحقوق محفوظة"
+            data-en="KwikX Mail © 2026 — All rights reserved"
+        >KwikX Mail © 2026 — All rights reserved</p>
+
+        <p style="margin-top:10px;">
+            <a
+                href="#top"
+                class="t"
+                data-ar="الرئيسية"
+                data-en="Home"
+            >Home</a>
+
+            |
+
+            <a
+                href="contact.html"
+                class="t"
+                data-ar="اتصل بنا"
+                data-en="Contact Us"
+            >Contact Us</a>
+
+            |
+
+            <a
+                href="privacy.html"
+                class="t"
+                data-ar="سياسة الخصوصية"
+                data-en="Privacy Policy"
+            >Privacy Policy</a>
+
+            |
+
+            <a
+                href="terms.html"
+                class="t"
+                data-ar="الشروط والأحكام"
+                data-en="Terms of Use"
+            >Terms of Use</a>
+        </p>
+    </footer>
+
+
+    <!-- Main application logic -->
+    <script src="script.js"></script>
+
 </body>
 </html>

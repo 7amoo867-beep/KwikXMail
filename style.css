@@ -1,355 +1,1088 @@
-* { box-sizing: border-box; }
-:root { --green: #00dc82; --bg: #000; }
+
+/* ======================================================
+   KwikX Mail — Main Stylesheet
+   Dark interface / Green accent / Responsive layout
+   ====================================================== */
+
+/* ---------- Global ---------- */
+
+:root {
+    color-scheme: dark;
+
+    --green: #00dc82;
+    --green-soft: rgba(0, 220, 130, 0.08);
+    --bg: #000;
+    --surface: #101010;
+    --surface-soft: rgba(255, 255, 255, 0.025);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #fff;
+    --text-muted: rgba(255, 255, 255, 0.55);
+    --danger: #ff7070;
+    --radius-card: 18px;
+    --transition: 0.22s ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
 
 body {
-    background: #000;
-    color: #fff;
-    font-family: 'Space Grotesk', 'Cairo', 'Poppins', sans-serif;
+    min-width: 320px;
     margin: 0;
     padding: 20px;
+    overflow-x: hidden;
+
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: "Space Grotesk", "Cairo", "Poppins", sans-serif;
+    line-height: 1.5;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap');
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
 
-/* ========== HEADER ========== */
+button,
+select {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    color: inherit;
+}
+
+img,
+svg {
+    max-width: 100%;
+}
+
+a {
+    overflow-wrap: anywhere;
+}
+
+::selection {
+    background: rgba(0, 220, 130, 0.28);
+    color: #fff;
+}
+
+
+/* ---------- Accessible Focus ---------- */
+
+:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 4px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.lang-option:focus-visible,
+.action-icons i:focus-visible,
+.art-box:focus-visible,
+.faq-item:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+}
+
+
+/* ---------- Header ---------- */
+
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: auto;
-    padding: 16px 20px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     width: 100%;
-    border-bottom: 1px solid rgba(255,255,255,.06);
-    margin-bottom: 10px;
+    max-width: 1200px;
+    margin: 0 auto 10px;
+    padding: 16px 20px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.lang-switch { display: flex; gap: 20px; align-items: center; z-index: 5; }
-.lang-dropdown { position: relative; display: inline-block; padding-bottom: 15px; }
-.dropdown-content { display: none; position: absolute; background: #111; min-width: 120px; box-shadow: 0px 8px 16px rgba(0,220,130,0.15); z-index: 10; border-radius: 8px; top: 100%; border: 1px solid #222; }
-.lang-dropdown:hover .dropdown-content { display: block; }
-.lang-option { display: block; padding: 12px; cursor: pointer; color: #fff; transition: 0.3s; text-align: center; font-size: 0.9rem; }
-.lang-option:hover { color: var(--green); background: #111; }
-.lang-btn { cursor: pointer; transition: 0.3s; font-size: 0.9rem; display: flex; align-items: center; color: rgba(255,255,255,.45); }
-.lang-btn:hover { color: var(--green); }
+.lang-switch {
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
-/* LOGO */
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+    margin-bottom: -15px;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    transition: color var(--transition);
+}
+
+.lang-btn:hover {
+    color: var(--green);
+}
+
+.dropdown-content {
+    position: absolute;
+    top: calc(100% - 1px);
+    inset-inline-start: 0;
+    z-index: 20;
+
+    display: none;
+    min-width: 130px;
+    padding: 5px;
+
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 10px;
+
+    box-shadow: 0 8px 24px rgba(0, 220, 130, 0.12);
+}
+
+.lang-dropdown:hover .dropdown-content,
+.lang-dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
+.lang-option {
+    display: block;
+    padding: 11px 12px;
+
+    color: #fff;
+    font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+
+    border-radius: 6px;
+    transition:
+        color var(--transition),
+        background var(--transition);
+}
+
+.lang-option:hover {
+    color: var(--green);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+
+/* ---------- Logo ---------- */
+
 .logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    z-index: 1;
+
     display: flex;
     align-items: center;
     gap: 4px;
+
+    transform: translateX(-50%);
     direction: ltr;
-    z-index: 1;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
     letter-spacing: -1px;
+    white-space: nowrap;
 }
 
 .logo span {
-    color: var(--green);
-    font-style: italic;
     position: relative;
     display: inline-block;
+
+    color: var(--green);
+    font-style: italic;
+
     animation: xcharge 2.5s ease-in-out infinite;
 }
 
 @keyframes xcharge {
-    0%, 100% { text-shadow: 0 0 10px rgba(0,220,130,.9), 0 0 25px rgba(0,220,130,.4); opacity: 1; }
-    45%, 55% { text-shadow: none; opacity: .45; }
+    0%,
+    100% {
+        text-shadow:
+            0 0 10px rgba(0, 220, 130, 0.9),
+            0 0 25px rgba(0, 220, 130, 0.4);
+        opacity: 1;
+    }
+
+    45%,
+    55% {
+        text-shadow: none;
+        opacity: 0.45;
+    }
 }
 
-/* ========== ADS ========== */
-.ad-container { display: flex; justify-content: center; align-items: center; margin: 20px auto; width: 100%; overflow: hidden; }
-.top-ad { min-height: 90px; }
-.bottom-ad { min-height: 90px; }
-.ad-desktop { display: block; width: 728px; height: 90px; overflow: hidden; }
-.ad-mobile { display: none; width: 320px; height: 50px; overflow: hidden; }
 
-/* ========== MAIN WRAPPER ========== */
+/* ---------- Main Layout ---------- */
+
 .main-wrapper {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 600px;
-    margin: 30px auto 40px auto;
+
     width: 100%;
+    max-width: 600px;
+    margin: 30px auto 40px;
 }
 
-/* ========== CARDS ========== */
 .card {
-    background: rgba(255,255,255,.025);
-    border: 1px solid rgba(255,255,255,.08);
-    padding: 28px;
-    border-radius: 18px;
     position: relative;
     width: 100%;
-    transition: border-color .3s;
-}
-.card:hover { border-color: rgba(0,220,130,.12); }
+    min-width: 0;
+    padding: 28px;
 
-/* ========== EMAIL INPUT AREA ========== */
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+
+    transition: border-color var(--transition);
+}
+
+.card:hover {
+    border-color: rgba(0, 220, 130, 0.18);
+}
+
+
+/* ---------- Email Address ---------- */
+
 .email-container {
     display: flex;
     align-items: stretch;
-    background: #000;
-    border: 1px solid rgba(0,220,130,.18);
-    border-radius: 12px;
-    overflow: hidden;
+
+    width: 100%;
+    min-width: 0;
     margin-top: 14px;
+    overflow: hidden;
+
+    background: #000;
+    border: 1px solid rgba(0, 220, 130, 0.2);
+    border-radius: 12px;
     direction: ltr;
-    transition: border-color .25s;
+
+    transition: border-color var(--transition);
 }
-.email-container:hover { border-color: rgba(0,220,130,.4); }
+
+.email-container:focus-within {
+    border-color: rgba(0, 220, 130, 0.65);
+}
 
 .email-input {
     flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 16px;
+
     background: transparent;
     border: none;
+    border-radius: 0;
+
     color: var(--green);
-    padding: 16px;
-    font-size: 1.3rem;
+    font-family: "Space Grotesk", monospace;
+    font-size: 1.2rem;
     font-weight: 700;
     text-align: left;
+
     outline: none;
-    font-family: 'Space Grotesk', monospace;
+}
+
+.email-input[readonly] {
+    cursor: text;
+}
+
+.email-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+    opacity: 1;
+}
+
+.email-input:focus-visible {
+    outline: none;
 }
 
 .domain-select {
-    background: rgba(255,255,255,.04);
-    color: rgba(255,255,255,.4);
-    border: none;
-    border-left: 1px solid rgba(255,255,255,.08);
+    flex-shrink: 0;
+    max-width: 48%;
+    min-width: 0;
     padding: 0 14px;
-    font-size: 1rem;
-    outline: none;
+
+    background: rgba(255, 255, 255, 0.04);
+    border: none;
+    border-inline-start: 1px solid var(--border);
+    border-radius: 0;
+
+    color: rgba(255, 255, 255, 0.75);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.95rem;
+
     cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
-    transition: .2s;
+    transition:
+        color var(--transition),
+        background var(--transition);
 }
-.domain-select:hover { color: #fff; background: rgba(255,255,255,.07); }
+
+.domain-select:hover:not(:disabled) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.domain-select:disabled {
+    color: rgba(255, 255, 255, 0.55);
+    cursor: default;
+    opacity: 1;
+}
+
+.domain-select option {
+    background: #111;
+    color: #fff;
+}
+
+
+/* ---------- Email Action Icons ---------- */
 
 .action-icons {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
-    padding: 0 16px;
+    justify-content: center;
     gap: 14px;
-    border-right: 1px solid rgba(255,255,255,.07);
-    color: rgba(255,255,255,.3);
-    font-size: 1.1rem;
-    background: rgba(0,0,0,.3);
-}
-.action-icons i { cursor: pointer; transition: .25s; }
-.action-icons i:hover { color: var(--green); }
 
-/* ========== BUTTONS ========== */
+    padding: 0 16px;
+
+    background: rgba(0, 0, 0, 0.3);
+    border-inline-end: 1px solid rgba(255, 255, 255, 0.07);
+
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 1.1rem;
+}
+
+.action-icons i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 24px;
+    min-height: 28px;
+
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+.action-icons i:hover {
+    color: var(--green);
+}
+
+
+/* ---------- Buttons ---------- */
+
 .buttons-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+
     margin-top: 22px;
-    flex-wrap: wrap;
 }
 
 .btn-icon {
-    background: rgba(255,255,255,.03);
-    border: 1px solid rgba(255,255,255,.08);
-    color: rgba(255,255,255,.4);
-    padding: 12px 22px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all .22s;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    font-size: .95rem;
-    font-family: 'Space Grotesk', sans-serif;
+
+    min-height: 43px;
+    padding: 11px 18px;
+
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    color: rgba(255, 255, 255, 0.7);
+    font-family: "Space Grotesk", "Cairo", sans-serif;
+    font-size: 0.92rem;
     font-weight: 500;
+
+    cursor: pointer;
+    transition:
+        border-color var(--transition),
+        color var(--transition),
+        background var(--transition),
+        opacity var(--transition);
 }
-.btn-icon:hover {
+
+.btn-icon:hover:not(:disabled) {
+    background: rgba(0, 220, 130, 0.07);
     border-color: var(--green);
     color: var(--green);
-    background: rgba(0,220,130,.06);
-}
-.btn-icon:last-child:hover {
-    border-color: rgba(255,80,80,.4);
-    color: #ff7070;
-    background: rgba(255,80,80,.05);
 }
 
-/* ========== INBOX ========== */
+.btn-icon:last-child:hover:not(:disabled) {
+    background: rgba(255, 80, 80, 0.05);
+    border-color: rgba(255, 80, 80, 0.45);
+    color: var(--danger);
+}
+
+.btn-icon:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.btn-icon:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+
+/* ---------- Inbox ---------- */
+
 .inbox-title {
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    padding-bottom: 14px;
-    margin-top: 0;
     display: flex;
     align-items: center;
+    gap: 10px;
+
+    margin: 0 0 16px;
+    padding-bottom: 14px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+    color: rgba(255, 255, 255, 0.75);
     font-size: 1rem;
     font-weight: 600;
-    color: rgba(255,255,255,.6);
 }
-.inbox-title i { margin-inline-end: 10px; color: var(--green); }
 
-/* ========== ARTICLES GRID ========== */
+.inbox-title i {
+    flex-shrink: 0;
+    color: var(--green);
+}
+
+#inboxMessages {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.message-item {
+    width: 100%;
+    max-width: 100%;
+    text-align: start;
+}
+
+.message-item strong {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+.message-item button {
+    max-width: 100%;
+    transition:
+        background var(--transition),
+        opacity var(--transition);
+}
+
+.message-item button:hover {
+    background: #00b974 !important;
+}
+
+.message-item button:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+}
+
+
+/* ---------- Informational Articles ---------- */
+
 .articles-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
     gap: 20px;
+
+    width: 100%;
     max-width: 1200px;
     margin: 50px auto;
-    align-items: start;
-    width: 100%;
 }
 
 .art-box {
-    min-height: 160px;
-    background: rgba(255,255,255,.025);
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 16px;
-    cursor: pointer;
-    padding: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    min-width: 0;
+    min-height: 160px;
+    padding: 24px;
+
+    background: var(--surface-soft);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+
     text-align: center;
-    transition: all 0.35s ease;
+    cursor: pointer;
+
+    transition:
+        border-color 0.3s ease,
+        background 0.3s ease;
 }
+
 .art-box:hover {
-    border-color: rgba(0,220,130,.25);
-    background: rgba(0,220,130,.03);
+    background: rgba(0, 220, 130, 0.03);
+    border-color: rgba(0, 220, 130, 0.25);
 }
+
+.art-box.active {
+    background: rgba(0, 220, 130, 0.04);
+    border-color: rgba(0, 220, 130, 0.3);
+}
+
 .art-img {
-    width: 100%;
-    height: 80px;
-    background: rgba(0,220,130,.07);
-    border-radius: 12px;
-    margin-bottom: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.2rem;
+
+    width: 100%;
+    min-height: 80px;
+    margin-bottom: 16px;
+
+    background: rgba(0, 220, 130, 0.07);
+    border: 1px solid rgba(0, 220, 130, 0.15);
+    border-radius: 12px;
+
     color: var(--green);
-    border: 1px solid rgba(0,220,130,.15);
-    transition: all .3s;
+    font-size: 2.2rem;
+
+    transition: background 0.3s ease;
 }
-.art-box:hover .art-img { background: rgba(0,220,130,.12); }
-.art-box h4 { margin: 8px 0; font-size: 1rem; line-height: 1.4; color: rgba(255,255,255,.8); }
+
+.art-box:hover .art-img,
+.art-box.active .art-img {
+    background: rgba(0, 220, 130, 0.12);
+}
+
+.art-box h4 {
+    width: 100%;
+    margin: 8px 0;
+
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
 
 .art-content {
+    width: 100%;
     max-height: 0;
-    opacity: 0;
-    transition: all 0.4s ease;
-    font-size: 0.92rem;
-    color: rgba(255,255,255,.5);
-    line-height: 1.7;
-    padding: 0;
     margin: 0;
-    text-align: justify;
-}
-.art-box.active {
-    border-color: rgba(0,220,130,.3);
-    background: rgba(0,220,130,.04);
-}
-.art-box.active .art-content {
-    max-height: 2000px;
-    opacity: 1;
-    margin-top: 16px;
-    padding-top: 14px;
-    border-top: 1px dashed rgba(255,255,255,.08);
+    padding: 0;
+    overflow: hidden;
+
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    text-align: start;
+    overflow-wrap: anywhere;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        margin 0.3s ease,
+        padding 0.3s ease,
+        visibility 0.3s ease;
 }
 
-/* ========== FAQ ========== */
+.art-box.active .art-content {
+    max-height: 2000px;
+    margin-top: 16px;
+    padding-top: 14px;
+
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ---------- FAQ ---------- */
+
 .faq-section {
+    width: 100%;
     max-width: 700px;
     margin: 40px auto;
     padding: 28px;
-    background: rgba(255,255,255,.02);
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 18px;
-    width: 100%;
+
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-card);
 }
-.faq-title { text-align: center; color: var(--green); margin-bottom: 24px; font-size: 1.6rem; }
+
+.faq-title {
+    margin: 0 0 24px;
+
+    color: var(--green);
+    font-size: 1.55rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
 .faq-item {
-    background: rgba(255,255,255,.02);
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 12px;
     margin-bottom: 12px;
-    cursor: pointer;
-    transition: .3s;
     overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: border-color var(--transition);
 }
-.faq-item:hover { border-color: rgba(0,220,130,.2); }
+
+.faq-item:last-child {
+    margin-bottom: 0;
+}
+
+.faq-item:hover {
+    border-color: rgba(0, 220, 130, 0.2);
+}
+
 .faq-header {
-    padding: 18px 20px;
-    margin: 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+
+    margin: 0;
+    padding: 18px 20px;
+
+    color: rgba(255, 255, 255, 0.78);
     font-size: 1rem;
     font-weight: 500;
-    color: rgba(255,255,255,.7);
-    transition: .3s;
+    line-height: 1.6;
+
+    transition: color var(--transition);
 }
+
+.faq-header span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.faq-header > i {
+    flex-shrink: 0;
+    color: var(--green);
+    font-size: 0.85rem;
+
+    transition: transform var(--transition);
+}
+
 .faq-answer {
     max-height: 0;
-    opacity: 0;
-    transition: all 0.4s ease;
     padding: 0 20px;
-    color: rgba(255,255,255,.45);
-    line-height: 1.7;
-    font-size: .95rem;
-}
-.faq-item.active .faq-header { color: var(--green); border-bottom: 1px dashed rgba(255,255,255,.07); padding-bottom: 14px; margin-bottom: 14px; }
-.faq-item.active .faq-answer { max-height: 300px; opacity: 1; padding: 0 20px 18px 20px; }
+    overflow: hidden;
 
-/* ========== FOOTER ========== */
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        padding 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.faq-item.active .faq-header {
+    padding-bottom: 14px;
+
+    color: var(--green);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.faq-item.active .faq-header > i {
+    transform: rotate(180deg);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 1000px;
+    padding: 0 20px 18px;
+
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ---------- Footer ---------- */
+
 footer {
-    text-align: center;
-    padding: 36px;
-    border-top: 1px solid rgba(255,255,255,.06);
-    margin-top: 50px;
-    color: rgba(255,255,255,.25);
-    font-size: .9rem;
     width: 100%;
+    margin-top: 50px;
+    padding: 36px 16px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
-footer a { color: var(--green); text-decoration: none; margin: 0 8px; transition: .3s; opacity: .7; }
-footer a:hover { opacity: 1; }
 
-/* ========== TOAST ========== */
-.otp-message { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 18px; margin-top: 14px; text-align: start; width: 100%; animation: fadeIn 0.5s; }
-.otp-code { display: inline-block; background: rgba(0,220,130,.08); color: var(--green); border: 1px dashed rgba(0,220,130,.4); padding: 10px 20px; font-size: 1.8rem; font-weight: bold; border-radius: 10px; margin-top: 10px; letter-spacing: 3px; direction: ltr; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+footer p {
+    margin: 0;
+}
 
-/* ========== MOBILE ========== */
+footer a {
+    display: inline-block;
+    margin: 0 6px;
+
+    color: var(--green);
+    text-decoration: none;
+    opacity: 0.8;
+
+    transition: opacity var(--transition);
+}
+
+footer a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+
+/* ---------- Message Dialog ---------- */
+
+#kwikMessageDialog {
+    width: min(760px, 92vw);
+    max-width: 92vw;
+    max-height: 85vh;
+    padding: 22px;
+    overflow: auto;
+
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 12px;
+    color: #f5f5f5;
+}
+
+#kwikMessageDialog::backdrop {
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(3px);
+}
+
+#kwikMessageDialog h2 {
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+
+#kwikMessageDialog pre {
+    max-width: 100%;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+#kwikMessageDialog button {
+    min-height: 40px;
+}
+
+#kwikMessageDialog button:hover {
+    filter: brightness(1.08);
+}
+
+
+/* ---------- Toast Safety ---------- */
+
+[role="status"][aria-live="polite"] {
+    overflow-wrap: anywhere;
+}
+
+
+/* ---------- Compatibility: Ad Containers ---------- */
+/* These rules do not load ads. Ad slots are currently absent
+   from the HTML and can be styled again if needed later. */
+
+.ad-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.top-ad,
+.bottom-ad {
+    min-height: 0;
+}
+
+.ad-desktop {
+    display: block;
+    width: 728px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.ad-mobile {
+    display: none;
+    width: 320px;
+    height: 50px;
+    overflow: hidden;
+}
+
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 1000px) {
+    .articles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        padding-inline: 4px;
+    }
+
+    .art-box {
+        padding: 20px;
+    }
+}
+
+
+/* ---------- Mobile ---------- */
+
 @media (max-width: 768px) {
-    body { padding: 12px; }
+    body {
+        padding: 12px;
+    }
 
-    .header { flex-direction: column; gap: 14px; padding-bottom: 14px; margin-bottom: 10px; }
-    .logo { position: relative; left: auto; transform: none; font-size: 1.9rem; order: -1; }
-    .lang-switch { width: 100%; justify-content: space-between; }
+    .header {
+        flex-direction: column;
+        gap: 14px;
 
-    .ad-container { margin: 10px auto; }
-    .top-ad, .bottom-ad { min-height: 50px; }
-    .ad-desktop { display: none !important; }
-    .ad-mobile { display: block !important; }
+        padding: 14px 8px;
+        margin-bottom: 10px;
+    }
 
-    .main-wrapper { margin-top: 14px; gap: 14px; }
-    .card { padding: 18px; border-radius: 14px; }
+    .logo {
+        position: relative;
+        left: auto;
+        order: -1;
 
-    .email-container { flex-direction: column; border-radius: 12px; }
-    .email-input { width: 100%; text-align: center; padding: 14px; font-size: 1.1rem; }
-    .domain-select { border-left: none; border-top: 1px solid rgba(255,255,255,.08); padding: 11px; font-size: 1rem; text-align: center; }
-    .action-icons { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); padding: 11px; justify-content: center; }
+        transform: none;
+        font-size: 1.9rem;
+    }
 
-    .buttons-container { gap: 8px; }
-    .btn-icon { flex: 1; justify-content: center; padding: 11px 8px; font-size: .88rem; }
+    .lang-switch {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 14px;
+    }
 
-    .articles-grid { grid-template-columns: 1fr; gap: 14px; margin: 28px auto; }
-    .art-box { min-height: auto; padding: 18px; }
+    .dropdown-content {
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+    }
 
-    .faq-section { padding: 18px; border-radius: 14px; }
+    .main-wrapper {
+        gap: 14px;
+        margin: 14px auto 28px;
+    }
+
+    .card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .email-container {
+        flex-direction: column;
+        border-radius: 12px;
+    }
+
+    .action-icons {
+        justify-content: center;
+        min-height: 42px;
+        padding: 8px;
+
+        border-inline-end: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .email-input {
+        flex: none;
+        width: 100%;
+        padding: 14px 10px;
+
+        font-size: 1.05rem;
+        text-align: center;
+    }
+
+    .domain-select {
+        width: 100%;
+        max-width: 100%;
+        min-height: 44px;
+        padding: 10px;
+
+        border-inline-start: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+        font-size: 0.95rem;
+        text-align: center;
+    }
+
+    .buttons-container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+
+        margin-top: 16px;
+    }
+
+    .btn-icon {
+        width: 100%;
+        min-width: 0;
+        min-height: 43px;
+        padding: 10px 7px;
+
+        gap: 7px;
+        font-size: 0.87rem;
+    }
+
+    .inbox-title {
+        font-size: 0.98rem;
+    }
+
+    #inboxMessages {
+        width: 100%;
+        font-size: 0.92rem;
+    }
+
+    .message-item {
+        padding: 12px !important;
+    }
+
+    .articles-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+
+        margin: 28px auto;
+        padding: 0;
+    }
+
+    .art-box {
+        min-height: 0;
+        padding: 18px;
+    }
+
+    .art-img {
+        min-height: 70px;
+        margin-bottom: 12px;
+        font-size: 2rem;
+    }
+
+    .art-box h4 {
+        font-size: 1rem;
+    }
+
+    .art-content {
+        font-size: 0.92rem;
+    }
+
+    .faq-section {
+        margin: 28px auto;
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .faq-title {
+        font-size: 1.35rem;
+    }
+
+    .faq-header {
+        padding: 15px;
+        font-size: 0.95rem;
+    }
+
+    .faq-answer {
+        padding-inline: 15px;
+        font-size: 0.92rem;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0 15px 16px;
+    }
+
+    footer {
+        margin-top: 32px;
+        padding: 28px 8px;
+        font-size: 0.85rem;
+    }
+
+    #kwikMessageDialog {
+        width: 94vw;
+        max-width: 94vw;
+        max-height: 88vh;
+        padding: 16px;
+    }
+}
+
+
+/* ---------- Small Mobile ---------- */
+
+@media (max-width: 380px) {
+    body {
+        padding: 8px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .logo {
+        font-size: 1.7rem;
+    }
+
+    .btn-icon {
+        gap: 5px;
+        font-size: 0.8rem;
+    }
+
+    .faq-section {
+        padding: 13px;
+    }
+}
+
+
+/* ---------- Reduced Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
